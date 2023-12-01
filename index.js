@@ -25,6 +25,9 @@ mongoose
         recipes.map(x => {console.log(x.title)})
       })
   })
+  .then(()=> {
+    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  })
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
