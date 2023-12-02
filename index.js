@@ -16,17 +16,23 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
-    Recipe.create({title: 'boiling water', level: 'Easy Peasy', ingredients: ['water'], cuisine: 'basics', dishType: 'soup', duration: 10, creator: 'God'})
-    .then(recipe =>{ console.log(recipe.title)})
+    return Recipe.create({title: 'boiling water', level: 'Easy Peasy', ingredients: ['water'], cuisine: 'basics', dishType: 'soup', duration: 10, creator: 'God'})
   })
-  .then(() => {
-    Recipe.insertMany(data)
-      .then(recipes => {
-        recipes.map(x => {console.log(x.title)})
-      })
+  .then(newRecipe => {
+    console.log(newRecipe);
+    return Recipe.insertMany(data)
   })
-  .then(()=> {
-    Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  .then(manyRecipes => {
+    console.log(manyRecipes);
+    return Recipe.findOneAndUpdate({title: 'Rigatoni alla Genovese'}, {duration: 100})
+  })
+  .then(updatedRecipe => {
+    console.log(updatedRecipe);
+    return Recipe.deleteOne({title: 'Carrot Cake'})
+  })
+  .then(deletedElement => {
+    console.log(deletedElement);
+    mongoose.disconnect();
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
